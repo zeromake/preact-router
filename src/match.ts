@@ -1,5 +1,6 @@
 import { h, Component } from "react-import";
 import { subscribers, getCurrentUrl, Link as StaticLink } from "./router";
+import { rest } from "./utils";
 
 interface IMatchProps {
     path: string;
@@ -32,23 +33,26 @@ export class Match extends Component<IMatchProps, any> {
         });
     }
 }
-export const Link = ({ activeClassName, path, ...props }) => (
-    h(
+export const Link = (props: any) => {
+    const activeClassName = props.activeClassName;
+    const path = props.path;
+    const filterProps = rest(props, ["activeClassName", "path"]);
+    return h(
         Match,
-        { path: path || props.href, render: ({ matches }) => (
+        { path: path || filterProps.href, render: ({ matches }) => (
             h(
                 StaticLink,
                 {
-                    ...props,
+                    ...filterProps,
                     class: [
-                        props.class || props.className,
+                        filterProps.class || filterProps.className,
                         matches && activeClassName,
                     ].filter(Boolean).join(" "),
                 },
             )
         )},
-    )
-);
+    );
+};
 Match.Link = Link;
 
 export default Match;

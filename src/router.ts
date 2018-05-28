@@ -6,6 +6,7 @@ import {
     rankChild,
     isRoute,
     findChildRoute,
+    rest,
 } from "./utils";
 
 let customHistory = null;
@@ -181,7 +182,8 @@ const Link = (props) => (
 );
 
 function Route(props: any) {
-    const { component, ...filterProps } = props;
+    const filterProps = rest(props, ["component"]);
+    // const { component, ...filterProps } = props;
     return h(props.component, filterProps);
 }
 
