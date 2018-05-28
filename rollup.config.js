@@ -28,7 +28,6 @@ const basePlugins = [
     replacePlugin
 ]
 if (isProduction) {
-console.log(terser)
     basePlugins.push(terser())
 }
 const external = [reactStr]
