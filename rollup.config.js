@@ -43,7 +43,7 @@ if (isReact) {
 }
 
 module.exports = {
-    input: 'src/router.ts',
+    input: 'src/index.ts',
     external: external,
     plugins: basePlugins,
     output: isProduction ? [
