@@ -8,6 +8,7 @@ import {
     findChildRoute,
     rest,
 } from "./utils";
+import { REFUSED } from "dns";
 
 let customHistory = null;
 
@@ -137,25 +138,38 @@ function prevent(e) {
     return false;
 }
 
-async function delegateLinkHandler(e) {
+function delegateLinkHandler(e) {
     // ignore events the browser takes care of already:
     if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey || e.button !== 0) {
         return;
     }
 
-    let t = e.target;
+    const t = e.target;
+    return loop(t, e);
+}
+
+function loop(t: Element, e: Event): boolean| Promise<boolean|Promise<boolean>> {
     do {
         if (String(t.nodeName).toUpperCase() === "A" && t.getAttribute("href") && isPreactElement(t)) {
             if (t.hasAttribute("native")) {
                 return;
             }
-            // if link is handled by the router, prevent browser defaults
-            const temp: boolean = await routeFromLink(t);
-            if (temp) {
-                return prevent(e);
+            const res: boolean|Promise<boolean> = routeFromLink(t);
+            if (typeof res === "boolean") {
+                if (res) {
+                    return prevent(e);
+                }
+            } else if (res.then) {
+                return res.then((temp: boolean) => {
+                    if (temp) {
+                        return Promise.resolve(prevent(e));
+                    } else {
+                        return loop(t.parentNode as Element, e);
+                    }
+                });
             }
         }
-        t = t.parentNode;
+        t = t.parentNode as Element;
     } while (t);
 }
 
@@ -189,6 +203,8 @@ function Route(props: any) {
 
 class Router extends Component<any, any> {
     public updating: boolean;
+    public props: any;
+    public state: any;
 
     private _didRoute: boolean;
     private unlisten: any;
@@ -479,5 +495,10 @@ class Router extends Component<any, any> {
 //     return customHistory;
 // }
 
-export { subscribers, getCurrentUrl, route, Router, Route, Link, customHistory };
+function Switch(props: any): any {
+    const children = Children.toArray(findChildren(props));
+    return children && children[0];
+}
+
+export { subscribers, getCurrentUrl, route, Router, Route, Link, customHistory, Switch };
 // export default Router;
