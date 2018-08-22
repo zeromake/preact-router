@@ -12,7 +12,8 @@ import {
 } from "./context";
 
 export function Location(props) {
-    const children = Children.only(props.children);
+    // const children = Children.only(props.children);
+    const children = Array.isArray(props.children) ? props.children[0] : props.children;
     return (
         <LocationContext.Consumer>
             {(context: any) => {

@@ -71,7 +71,7 @@ class FocusHandlerImpl extends Component<any, any> {
     public componentWillUnmount() {
         focusHandlerCount--;
         if (focusHandlerCount === 0) {
-        initialRender = true;
+            initialRender = true;
         }
     }
 
@@ -108,7 +108,7 @@ class FocusHandlerImpl extends Component<any, any> {
         }
     }
 
-    public setRef = (n) => this.node = n;
+    public setRef = (n) => this.node = n.base ? n.base : n;
 
     public componentWillReceiveProps(nextProps, nextState) {
         const state = FocusHandlerImpl.getDerivedStateFromProps(nextProps, this.state);
@@ -121,11 +121,8 @@ class FocusHandlerImpl extends Component<any, any> {
         const {
             children,
             style,
-            requestFocus,
             role = "group",
             component: Comp = "div",
-            uri,
-            location,
         } = this.props;
         const domProps = rest(
             this.props,
@@ -149,7 +146,7 @@ class FocusHandlerImpl extends Component<any, any> {
                 {...domProps}
             >
                 <FocusContext.Provider value={this.requestFocus}>
-                    {this.props.children}
+                    {children}
                 </FocusContext.Provider>
             </Comp>
         );

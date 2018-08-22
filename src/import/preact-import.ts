@@ -87,6 +87,7 @@ const Children = {
 };
 const forwardRef = (c: any) => c;
 const PureComponent = Component;
+
 export {
     h,
     Component,

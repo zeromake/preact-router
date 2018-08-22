@@ -18,7 +18,9 @@ import {
     defer,
 } from "./lib/utils";
 
-const deferredUpdates = React.unstable_deferredUpdates || ((fn) => fn());
+const deferredUpdatesName = "unstable_deferredUpdates";
+
+const deferredUpdates = deferredUpdatesName in React ? React[deferredUpdatesName] : ((fn) => fn());
 
 interface ILocationProviderProps {
     history?: any;
@@ -82,7 +84,8 @@ export class LocationProvider extends Component<ILocationProviderProps> {
 
     public render() {
         const context = this.state.context;
-        const children = Children.only(this.props.children);
+        const props = this.props;
+        const children = Array.isArray(props.children) ? props.children[0] : props.children;
         return (
             <LocationContext.Provider value={context}>
                 {typeof children === "function" ? children(context) : children || null}
