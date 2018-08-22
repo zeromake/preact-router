@@ -1,4 +1,4 @@
-import { h, Component, cloneElement, Children } from "zreact";
+import { h, Component, PureComponent, createContext, cloneElement, Children, forwardRef } from "zreact";
 
 interface IVNode {
     nodeName: Component<any, any>|string;
@@ -15,11 +15,19 @@ function findChildren(vnode) {
     return vnode.children;
 }
 
+function findNodeType(vnode) {
+    return vnode.nodeName;
+}
+
 export {
     h,
     Component,
+    PureComponent,
     cloneElement,
     Children,
     findProps,
     findChildren,
+    createContext,
+    findNodeType,
+    forwardRef,
 };

@@ -10,14 +10,20 @@ interface IVNode {
 function findProps(vnode: IVNode) {
     return vnode && vnode.attributes;
 }
+
 function findChildren(vnode) {
-    return vnode.children;
+    return vnode.children.length > 0 ? vnode.children : null;
 }
+
 function isArray(obj: any): boolean {
     if (Array.isArray) {
         return Array.isArray(obj);
     }
     return toString.call(obj) === "[object Array]";
+}
+
+function findNodeType(obj: IVNode): Component<any, any>|string {
+    return obj.nodeName;
 }
 
 declare type childType = IVNode|string|number|boolean|null|undefined|void;
@@ -79,12 +85,16 @@ const Children = {
         return arraySlice.call(children);
     },
 };
-
+const forwardRef = (c: any) => c;
+const PureComponent = Component;
 export {
     h,
     Component,
+    PureComponent,
     cloneElement,
     Children,
     findProps,
     findChildren,
+    findNodeType,
+    forwardRef,
 };

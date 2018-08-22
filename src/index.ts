@@ -1,26 +1,39 @@
 import {
-    subscribers,
-    getCurrentUrl,
-    route,
+    ServerLocation,
+    Location,
+} from "./location";
+
+import {
+    Redirect,
+    isRedirect,
+    redirectTo,
+} from "./redirect";
+
+import {
     Router,
-    Route,
-    Link,
-    customHistory,
-    Switch,
 } from "./router";
-import Match from "./match";
-import AsyncRoute from "./async-route";
+
+import {
+    navigate,
+    createHistory,
+    createMemorySource,
+} from "./lib/history";
+
+import { Link } from "./link";
+import { LocationProvider } from "./location-provider";
+import { Match } from "./match";
 
 export {
-    subscribers,
-    getCurrentUrl,
-    route,
-    Route,
-    Router,
     Link,
-    customHistory,
+    Location,
+    LocationProvider,
     Match,
-    AsyncRoute,
-    Switch,
+    Redirect,
+    Router,
+    ServerLocation,
+    createHistory,
+    createMemorySource,
+    isRedirect,
+    navigate,
+    redirectTo,
 };
-export default Router;
