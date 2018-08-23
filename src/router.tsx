@@ -18,7 +18,6 @@ import {
 import {
     pick,
     resolve,
-    rest,
 } from "./lib/utils";
 
 import {
@@ -50,25 +49,27 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
     public linkState: any;
     public setState: any;
     public forceUpdate: any;
+    public refs: any;
     public render() {
         const {
             location,
             navigate,
             primary,
             children,
+            baseuri,
             component = "div",
-        } = this.props;
-        const domProps = rest(
-            this.props,
-            [
-                "location",
-                "navigate",
-                "primary",
-                "children",
-                "baseuri",
-                "component",
-            ],
-        );
+            ...domProps } = this.props;
+        // const domProps = rest(
+        //     this.props,
+        //     [
+        //         "location",
+        //         "navigate",
+        //         "primary",
+        //         "children",
+        //         "baseuri",
+        //         "component",
+        //     ],
+        // );
 
         let basepath = this.props.basepath;
         const routes = Children.map(children, createRoute(basepath));

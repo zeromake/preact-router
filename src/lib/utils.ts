@@ -1,20 +1,3 @@
-export function rest(s: any, e: string[]): any {
-    const t = {};
-    for (const p_ in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p_) && e.indexOf(p_) < 0) {
-            t[p_] = s[p_];
-        }
-    }
-    if (s != null && typeof Object.getOwnPropertySymbols === "function") {
-        for (let i: number = 0, p_ = Object.getOwnPropertySymbols(s); i < p_.length; i++) {
-            if (e.indexOf(p_[i] as any) < 0) {
-                t[p_[i]] = s[p_[i]];
-            }
-        }
-    }
-    return t;
-}
-
 function segmentize(uri: string): string[] {
   return uri
     // strip starting/ending slashes

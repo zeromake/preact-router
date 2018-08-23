@@ -5,7 +5,6 @@ import {
 
 import {
     insertParams,
-    rest,
     defer,
 } from "./lib/utils";
 
@@ -31,28 +30,29 @@ class RedirectImpl extends Component {
     public context: any;
     public setState: any;
     public forceUpdate: any;
+    public refs: any;
     // Support React < 16 with this hook
     public componentDidMount() {
-        const { navigate, to, replace = true, state } = this.props;
-        const props = rest(
-            this.props,
-            [
-                "navigate",
-                "to",
-                "from",
-                "replace",
-                "state",
-                "noThrow",
-            ],
-        );
+        const { navigate, from, to, replace = true, state, noThrow, ...props } = this.props;
+        // const props = rest(
+        //     this.props,
+        //     [
+        //         "navigate",
+        //         "to",
+        //         "from",
+        //         "replace",
+        //         "state",
+        //         "noThrow",
+        //     ],
+        // );
         defer(() => {
             navigate(insertParams(to, props), { replace, state });
         });
     }
 
     public render() {
-        const { navigate, to, from, replace, state, noThrow } = this.props;
-        const props = rest(this.props, ["navigate", "to", "from", "replace", "state", "noThrow"]);
+        const { navigate, to, from, replace, state, noThrow, ...props } = this.props;
+        // const props = rest(this.props, ["navigate", "to", "from", "replace", "state", "noThrow"]);
         if (!noThrow) {
             redirectTo(insertParams(to, props));
         }

@@ -34,6 +34,7 @@ export class LocationProvider extends Component<ILocationProviderProps> {
     public setState: any;
     public linkState: any;
     public forceUpdate: any;
+    public refs: any;
     public unmounted: boolean;
 
     public static defaultProps = {

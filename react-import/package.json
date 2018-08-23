@@ -1,0 +1,11 @@
+{
+  "name": "react-import",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zeromake <a390720046@gmail.com>",
+  "license": "ISC"
+}

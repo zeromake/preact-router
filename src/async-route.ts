@@ -1,5 +1,4 @@
 import { h, Component, Children } from "react-import";
-import { rest } from "./lib/utils";
 
 function loadComponent(props: any, next: (component: Component<any, any>) => void) {
     if (props.component && props.component !== AsyncRoute) {
@@ -60,9 +59,9 @@ export default class AsyncRoute extends Component<any, any> {
     }
     public render() {
         if (this.state.componentData) {
-            const props = this.props;
-            const filterProps = rest(props, ["component", "getComponent", "loading"]);
-            // const { component, getComponent, loading, ...props } = this.props;
+            // const props = this.props;
+            // const filterProps = rest(props, ["component", "getComponent", "loading"]);
+            const { component, getComponent, loading, ...filterProps } = this.props;
             return h(this.state.componentData, filterProps);
         } else if (this.props.loading) {
             const loadingComponent = this.props.loading();

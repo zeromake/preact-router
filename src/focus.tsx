@@ -6,13 +6,10 @@ import {
 import {
     FocusContext,
 } from "./context";
-import {
-    rest,
-} from "./lib/utils";
 
 export function FocusHandler(props) {
-    const { uri, location, component } = props;
-    const domProps = rest(props, ["uri", "location", "component"]);
+    const { uri, location, component, ...domProps } = props;
+    // const domProps = rest(props, ["uri", "location", "component"]);
     return (
         <FocusContext.Consumer>
             {(requestFocus) => (
@@ -57,6 +54,7 @@ class FocusHandlerImpl extends Component<any, any> {
     public context: any;
     public setState: any;
     public forceUpdate: any;
+    public refs: any;
     private node: any;
     constructor(p, c) {
         super(p, c);
@@ -120,22 +118,25 @@ class FocusHandlerImpl extends Component<any, any> {
     public render() {
         const {
             children,
+            requestFocus,
             style,
             role = "group",
             component: Comp = "div",
-        } = this.props;
-        const domProps = rest(
-            this.props,
-            [
-                "children",
-                "style",
-                "requestFocus",
-                "role",
-                "component",
-                "uri",
-                "location",
-            ],
-        );
+            uri,
+            location,
+            ...domProps  } = this.props;
+        // const domProps = rest(
+        //     this.props,
+        //     [
+        //         "children",
+        //         "style",
+        //         "requestFocus",
+        //         "role",
+        //         "component",
+        //         "uri",
+        //         "location",
+        //     ],
+        // );
 
         return (
             <Comp

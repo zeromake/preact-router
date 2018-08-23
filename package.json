@@ -7,14 +7,15 @@
   "jsnext:main": "dist/zreact-router-esm.js",
   "minified:main": "dist/zreact-router.min.js",
   "scripts": {
+    "link": "cd react-import && npm link",
+    "test": "npm run link && jest",
     "build-react:min": "cross-env NODE_ENV=production REACT=react rollup -c rollup.config.js",
     "build-react": "cross-env REACT=react rollup -c rollup.config.js",
     "build-preact:min": "cross-env NODE_ENV=production REACT=preact rollup -c rollup.config.js",
     "build-preact": "cross-env REACT=preact rollup -c rollup.config.js",
     "build-zreact:min": "cross-env NODE_ENV=production REACT=zreact rollup -c rollup.config.js",
     "build-zreact": "cross-env REACT=zreact rollup -c rollup.config.js",
-    "build:all": "npm run build-react && npm run build-react:min && npm run build-preact && npm run build-preact:min && npm run build-zreact && npm run build-zreact:min && npm run fix",
-    "fix": "sed -i '' 's/const /var /g' dist/*.js"
+    "build:all": "npm run build-react && npm run build-react:min && npm run build-preact && npm run build-preact:min && npm run build-zreact && npm run build-zreact:min"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,7 @@
     "rollup-plugin-alias": "^1.4.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-terser": "^1.0.1",
-    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-typescript": "zeromake/rollup-plugin-typescript",
     "ts-jest": "^23.1.4",
     "tslint": "^5.11.0",
     "typescript": "^3.0.1",

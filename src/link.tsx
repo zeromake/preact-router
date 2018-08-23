@@ -6,7 +6,6 @@ import {
 import {
     resolve,
     startsWith,
-    rest,
 } from "./lib/utils";
 import {
     Location,
@@ -21,18 +20,18 @@ function shouldNavigate(event: MouseEvent) {
 }
 
 function LinkRender(props, ref) {
-    const deepProps = rest(props, ["innerRef"]);
-    const { innerRef } = props;
+    // const deepProps = rest(props, ["innerRef"]);
+    const { innerRef, ...deepProps } = props;
     return (
         <BaseContext.Consumer>
             {({ baseuri }) => (
                 <Location>
                     {({ location, navigate }) => {
-                        const { to, state, replace, getProps = k } = deepProps;
-                        const anchorProps = rest(
-                            deepProps,
-                            ["to", "state", "replace", "getProps"],
-                        );
+                        const { to, state, replace, getProps = k, ...anchorProps } = deepProps;
+                        // const anchorProps = rest(
+                        //     deepProps,
+                        //     ["to", "state", "replace", "getProps"],
+                        // );
                         const href = resolve(to, baseuri);
                         const isCurrent = location.pathname === href;
                         const isPartiallyCurrent = startsWith(location.pathname, href);
