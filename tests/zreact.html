@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/node_modules/zreact/dist/zreact.js"></script>
+    <script src="/dist/zreact-router.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const { Component, h, render } = zreact;
+        const { Router } = router;
+        const Home = () => h("h1", null, "Home");
+        const Test = () => h("h1", null, "Test");
+        function RootRouter() {
+            return  h("div", null,
+                h(Router, null,
+                    h(Home,
+                        {
+                            key: "1",
+                            path: "/tests/zreact.html",
+                        }
+                    ),
+                    h(Test,
+                        {
+                            key: "1",
+                            path: "/test",
+                        }
+                    )
+                )
+            )
+        }
+        render(h(RootRouter), document.querySelector("#app"))
+    </script>
+</body>
+</html>

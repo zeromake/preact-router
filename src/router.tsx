@@ -42,6 +42,7 @@ interface IRouterImplProps {
 class RouterImpl extends PureComponent<IRouterImplProps, any> {
     public static defaultProps = {
         prmary: true,
+        basepath: "/",
     };
     public state: any;
     public props: IRouterImplProps;

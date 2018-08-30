@@ -3,12 +3,13 @@ import { h, Component, PureComponent, createContext, cloneElement, Children, for
 interface IVNode {
     nodeName: Component<any, any>|string;
     attributes: {[name: string]: any};
+    props: {[name: string]: any};
     children: IVNode[];
     key: string;
 }
 
 function findProps(vnode: IVNode) {
-    return vnode && vnode.attributes;
+    return vnode && vnode.attributes || {};
 }
 
 function findChildren(vnode) {
