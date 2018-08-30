@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, {createElement as h} from "react";
+import {createElement as h} from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as renderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
@@ -29,7 +30,7 @@ const snapshot = ({ pathname, element }) => {
 const runWithNavigation = (element, pathname = "/") => {
     const history = createHistory(createMemorySource(pathname));
     const wrapper = renderer.create(
-        <LocationProvider history={history}>{element}</LocationProvider>
+        <LocationProvider history={history}>{element}</LocationProvider>,
     );
     const psnapshot = (str?: string) => {
         expect(wrapper.toJSON()).toMatchSnapshot();
@@ -95,7 +96,7 @@ describe("passed props", () => {
                 <Router>
                     <PropsPrinter path="/groups/:groupId/users/:userId" />
                 </Router>
-            )
+            ),
         });
     });
 
@@ -108,7 +109,7 @@ describe("passed props", () => {
                         <Group path="groups/:groupId" />
                     </Group>
                 </Router>
-            )
+            ),
         });
     });
 
@@ -206,7 +207,7 @@ describe("route ranking", () => {
     test("/groups/123/users/a/bunch/of/junk", () => {
         snapshot({
             element,
-            pathname: "/groups/123/users/a/bunch/of/junk"
+            pathname: "/groups/123/users/a/bunch/of/junk",
         }); // UsersSplat
     });
 
@@ -230,7 +231,7 @@ describe("nested rendering", () => {
                         <Reports path="reports" />
                     </Dash>
                 </Router>
-            )
+            ),
         });
     });
 
@@ -262,7 +263,7 @@ describe("nested rendering", () => {
                         </Reports>
                     </Dash>
                 </Router>
-            )
+            ),
         });
     });
 
@@ -347,29 +348,29 @@ describe("disrespect", () => {
 });
 
 describe("links", () => {
-    // it("accepts an innerRef prop", (done) => {
-    //     let ref;
-    //     const div = document.createElement("div");
-    //     ReactDOM.render(
-    //         <Link to="/" innerRef={node => (ref = node)} />,
-    //         div,
-    //         () => {
-    //             expect(ref).toBeInstanceOf(HTMLAnchorElement);
-    //             ReactDOM.unmountComponentAtNode(div);
-    //             done();
-    //         },
-    //     );
-    // });
+    it("accepts an innerRef prop", (done) => {
+        const ref = React.createRef();
+        const div = document.createElement("div");
+        ReactDOM.render(
+            <Link to="/" innerRef={ref} />,
+            div,
+            () => {
+                expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+                ReactDOM.unmountComponentAtNode(div);
+                done();
+            },
+        );
+    });
 
-    // it("forwards refs", (done) => {
-    //     let ref;
-    //     const div = document.createElement("div");
-    //     ReactDOM.render(<Link to="/" ref={node => (ref = node)} />, div, () => {
-    //         expect(ref).toBeInstanceOf(HTMLAnchorElement);
-    //         ReactDOM.unmountComponentAtNode(div);
-    //         done();
-    //     });
-    // });
+    it("forwards refs", (done) => {
+        const ref = React.createRef();
+        const div = document.createElement("div");
+        ReactDOM.render(<Link to="/" ref={ref} />, div, () => {
+            expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+            ReactDOM.unmountComponentAtNode(div);
+            done();
+        });
+    });
 
     it("renders links with relative hrefs", () => {
         const Parent = ({ children }) => (
@@ -544,7 +545,7 @@ describe("Match", () => {
 
 // React 16.4 is buggy https://github.com/facebook/react/issues/12968
 describe.skip("ServerLocation", () => {
-    let App = () => (
+    const App = () => (
         <Router>
             <Home path="/" />
             <Group path="/groups/:groupId" />
@@ -557,7 +558,7 @@ describe.skip("ServerLocation", () => {
             renderToString(
                 <ServerLocation url="/">
                     <App />
-                </ServerLocation>
+                </ServerLocation>,
             ),
         ).toMatchSnapshot();
 
@@ -565,7 +566,7 @@ describe.skip("ServerLocation", () => {
             renderToString(
                 <ServerLocation url="/groups/123">
                     <App />
-                </ServerLocation>
+                </ServerLocation>,
             ),
         ).toMatchSnapshot();
     });
@@ -577,7 +578,7 @@ describe.skip("ServerLocation", () => {
             markup = renderToString(
                 <ServerLocation url={redirectedPath}>
                     <App />
-                </ServerLocation>
+                </ServerLocation>,
             );
         } catch (error) {
             expect(markup).not.toBeDefined();

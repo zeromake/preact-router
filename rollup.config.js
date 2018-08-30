@@ -1,4 +1,4 @@
-const rollupTypescript = require('rollup-plugin-typescript')
+const rollupTypescript = require('rollup-typescript')
 const pkg = require('./package.json')
 const { terser } = require('rollup-plugin-terser')
 const replace = require('rollup-plugin-replace')
