@@ -4,6 +4,7 @@ import {
     PureComponent,
     Children,
     findChildren,
+    findProps,
     cloneElement,
 } from "react-import";
 
@@ -71,7 +72,6 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
         //         "component",
         //     ],
         // );
-
         let basepath = this.props.basepath;
         const routes = Children.map(children, createRoute(basepath));
         const pathname = location.pathname;
@@ -93,12 +93,12 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
                     options,
                 ),
             };
-            const child = findChildren(element);
+            const child = Children.toArray(findChildren(element));
             const clone = cloneElement(
                 element,
                 props,
-                child ? (
-                  <Router primary={primary}>{child}</Router>
+                child.length > 0 ? (
+                    <Router primary={primary}>{child}</Router>
                 ) : null,
             );
             const FocusWrapper = primary ? FocusHandler : component;
@@ -115,14 +115,16 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
     }
 }
 
-export const Router = (props) => (
-    <BaseContext.Consumer>
-        {(baseContext) => (
-            <Location>
-                {(locationContext) => (
-                    <RouterImpl {...baseContext} {...locationContext} {...props} />
-                )}
-            </Location>
-        )}
-    </BaseContext.Consumer>
-);
+export function Router(props) {
+    return (
+        <BaseContext.Consumer>
+            {(baseContext) => (
+                <Location>
+                    {(locationContext) => (
+                        <RouterImpl {...baseContext} {...locationContext} {...props} />
+                    )}
+                </Location>
+            )}
+        </BaseContext.Consumer>
+    );
+}

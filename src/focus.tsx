@@ -106,7 +106,7 @@ class FocusHandlerImpl extends Component<any, any> {
         }
     }
 
-    public setRef = (n) => this.node = n.base ? n.base : n;
+    public setRef = (n) => this.node = n && n.base ? n.base : n;
 
     public componentWillReceiveProps(nextProps, nextState) {
         const state = FocusHandlerImpl.getDerivedStateFromProps(nextProps, this.state);

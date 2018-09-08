@@ -8,15 +8,41 @@
     <script src="/node_modules/react/umd/react.development.js"></script>
     <script src="/node_modules/react-dom/umd/react-dom.development.js"></script>
     <script src="/dist/react-router.js"></script>
+    <script src="/node_modules/react-transition-group/dist/react-transition-group.js"></script>
+    <style>
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+            font-size: 100px;
+            font-style: italic;
+            font-family: Times;
+            padding-top: 20px;
+        }
+
+        .fade-enter .page {
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .fade-enter.fade-enter-active .page {
+            opacity: 1;
+            transition: opacity 450ms ease-in;
+        }
+    </style>
 </head>
 <body>
     <div id="app"></div>
     <script>
         const { Component, createElement: h } = React;
         const { render } = ReactDOM;
-        const { Router, Link } = router;
-        const Home = () => h("h1", null, "Home");
-        const Test = () => h("h1", null, "Test");
+        const { Router, Link, Location } = router;
+        const { TransitionGroup, CSSTransition } = ReactTransitionGroup;
+        const Home = () => h("h1", {className: "page"}, "Home");
+        const Test = () => h("h1", {className: "page"}, "Test");
         const ref = {};
         function innerRef(vdom) {
             ref.value = vdom;
@@ -27,20 +53,27 @@
                     h(Link, {"to": "/tests/react.html", ref: innerRef}, "11111111111"),
                     h(Link, {"to": "/tests/test.html"}, "22222222222"),
                 ),
-                h(Router, null,
-                    h(Home,
-                        {
-                            key: "1",
-                            path: "/tests/react.html",
-                        }
-                    ),
-                    h(Test,
-                        {
-                            key: "1",
-                            path: "/tests/test.html",
-                        }
+                h(Location, null, ({ location }) => (
+                    h(TransitionGroup, {className: "transition-group"},
+                        h(CSSTransition, {key: location.key, classNames: "fade", timeout:500},
+                            h(Router, {location: location, className: "router"},
+                                h(Home,
+                                    {
+                                        key: "1",
+                                        path: "/tests/react.html",
+                                    }
+                                ),
+                                h(Test,
+                                    {
+                                        key: "1",
+                                        path: "/tests/test.html",
+                                    }
+                                )
+                            )
+                        )
                     )
-                )
+                ))
+                
             )
         }
         render(h(RootRouter), document.querySelector("#app"))

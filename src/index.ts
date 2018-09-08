@@ -14,6 +14,11 @@ import {
 } from "./router";
 
 import {
+    Route,
+    DRouter,
+} from "./route";
+
+import {
     navigate,
     createHistory,
     createMemorySource,
@@ -36,4 +41,6 @@ export {
     isRedirect,
     navigate,
     redirectTo,
+    Route,
+    DRouter,
 };

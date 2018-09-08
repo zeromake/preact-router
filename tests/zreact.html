@@ -7,14 +7,20 @@
     <title>Document</title>
     <script src="/node_modules/zreact/dist/zreact.js"></script>
     <script src="/dist/zreact-router.js"></script>
+    <script src="/node_modules/preact-animate/dist/zreact-animate.js"></script>
+    <link rel="stylesheet" href="/node_modules/animate.css/animate.css">
 </head>
 <body>
     <div id="app"></div>
     <script>
         const { Component, h, render } = zreact;
-        const { Router, Link } = router;
-        const Home = () => h("h1", null, "Home");
-        const Test = () => h("h1", null, "Test");
+        const { DRouter, Route, Link } = router;
+        const Router = DRouter;
+        const Animate = animate;
+        const Home = () => {
+            return h("div", {className: "animated"}, "Home");
+        }
+        const Test = () => h("div", {className: "animated"}, "Test");
         const ref = {};
         function innerRef(vdom) {
             ref.value = vdom;
@@ -26,22 +32,35 @@
                     h(Link, {"to": "/tests/test.html"}, "22222222222"),
                 ),
                 h(Router, null,
-                    h(Home,
+                    h(Animate,
                         {
-                            key: "1",
-                            path: "/tests/zreact.html",
-                        }
-                    ),
-                    h(Test,
-                        {
-                            key: "1",
-                            path: "/tests/test.html",
-                        }
+                            component: "div",
+                            componentProps: {className: "reader-main"},
+                            transitionEnter: true,
+                            transitionLeave: true,
+                            transitionName: { enter: "fadeInLeft", leave: "fadeOutLeft" },
+                            isRender: false,
+                        },
+                        h(Route,
+                            {
+                                key: "1",
+                                path: "/tests/zreact.html",
+                                component: Home,
+                            }
+                        ),
+                        h(Route,
+                            {
+                                key: "2",
+                                path: "/tests/test.html",
+                                component: Test,
+                            }
+                        )
                     )
                 )
             )
         }
         render(h(RootRouter), document.querySelector("#app"))
     </script>
+    <script src="/node_modules/zreact/devtools-run.js"></script>
 </body>
 </html>
