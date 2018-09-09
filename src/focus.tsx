@@ -80,12 +80,12 @@ class FocusHandlerImpl extends Component<any, any> {
     }
 
     public focus() {
-        // if (process.env.NODE_ENV === "test") {
-        //     // getting cannot read property focus of null in the tests
-        //     // and that bit of global `initialRender` state causes problems
-        //     // should probably figure it out!
-        //     return;
-        // }
+        if (process.env.NODE_ENV === "test") {
+            // getting cannot read property focus of null in the tests
+            // and that bit of global `initialRender` state causes problems
+            // should probably figure it out!
+            return;
+        }
 
         const { requestFocus } = this.props;
 

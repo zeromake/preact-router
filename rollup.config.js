@@ -12,7 +12,8 @@ const reactStr = process.env.REACT
 
 const replacePlugin = replace({
     REACT: JSON.stringify(process.env.REACT),
-    ENV: JSON.stringify(process.env.NODE_ENV)
+    ENV: JSON.stringify(process.env.NODE_ENV),
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
 })
 const aliasPlugin = alias({
     resolve: ['.ts'],
