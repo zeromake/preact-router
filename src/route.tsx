@@ -136,13 +136,13 @@ export class RouteImpl extends PureComponent<IRouteImplProps, any> {
                     ),
                 };
                 const child = Children.toArray(findChildren(element));
-                return cloneElement(
+                return [cloneElement(
                     element,
                     props,
                     child.length > 0 ? (
                       <DRouter primary={primary}>{child}</DRouter>
                     ) : null,
-                );
+                )];
             }
             return null;
         }

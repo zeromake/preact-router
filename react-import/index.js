@@ -5,11 +5,11 @@ function findProps(vnode) {
 }
 
 function findChildren(vnode) {
-    return vnode.props && vnode.props.children;
+    return vnode && vnode.props && vnode.props.children;
 }
 
 function findNodeType(vnode) {
-    return vnode.type;
+    return vnode && vnode.type;
 }
 
 module.exports = {

@@ -32,15 +32,15 @@
                     h(Link, {"to": "/tests/test.html"}, "22222222222"),
                 ),
                 h(Router, null,
-                    h(Animate,
-                        {
-                            component: "div",
-                            componentProps: {className: "reader-main"},
-                            transitionEnter: true,
-                            transitionLeave: true,
-                            transitionName: { enter: "fadeInLeft", leave: "fadeOutLeft" },
-                            isRender: false,
-                        },
+                    // h(Animate,
+                    //     {
+                    //         component: "div",
+                    //         componentProps: {className: "reader-main"},
+                    //         transitionEnter: true,
+                    //         transitionLeave: true,
+                    //         transitionName: { enter: "fadeInLeft", leave: "fadeOutLeft" },
+                    //         isRender: false,
+                    //     },
                         h(Route,
                             {
                                 key: "1",
@@ -55,7 +55,7 @@
                                 component: Test,
                             }
                         )
-                    )
+                    // )
                 )
             )
         }
