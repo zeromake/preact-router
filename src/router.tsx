@@ -85,7 +85,7 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
             const element = route.value;
             basepath = route.default ? basepath : route.path.replace(/\*$/, "");
             const props = {
-                ...params,
+                params,
                 uri,
                 location,
                 navigate: (to, options) => navigate(
