@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/node_modules/preact/dist/preact.js"></script>
+    <script src="/dist/preact-router.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const { Component, h, render } = preact;
+        const { Router, Link } = router;
+        const Home = () => h("h1", null, "Home");
+        const Test = () => h("h1", null, "Test");
+        const ref = {};
+        function innerRef(vdom) {
+            ref.value = vdom;
+        }
+        function RootRouter() {
+            return  h("div", null,
+                h("div", null,
+                    h(Link, {"to": "/tests/preact.html", ref: innerRef}, "11111111111"),
+                    h(Link, {"to": "/tests/test.html"}, "22222222222"),
+                ),
+                h(Router, null,
+                    h(Home,
+                        {
+                            key: "1",
+                            path: "/tests/zreact.html",
+                        }
+                    ),
+                    h(Test,
+                        {
+                            key: "1",
+                            path: "/tests/test.html",
+                        }
+                    )
+                )
+            )
+        }
+        render(h(RootRouter), document.querySelector("#app"))
+    </script>
+</body>
+</html>
