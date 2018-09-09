@@ -27,21 +27,21 @@ function LinkRender(props, ref) {
             {({ baseuri }) => (
                 <Location>
                     {({ location, navigate }) => {
-                        const { to, state, replace, getProps = k, ...anchorProps } = deepProps;
+                        const { to, href, state, replace, getProps = k, ...anchorProps } = deepProps;
                         // const anchorProps = rest(
                         //     deepProps,
                         //     ["to", "state", "replace", "getProps"],
                         // );
-                        const href = resolve(to, baseuri);
-                        const isCurrent = location.pathname === href;
-                        const isPartiallyCurrent = startsWith(location.pathname, href);
+                        const phref = resolve(to || href, baseuri);
+                        const isCurrent = location.pathname === phref;
+                        const isPartiallyCurrent = startsWith(location.pathname, phref);
                         const onClick = (event: MouseEvent) => {
                             if (anchorProps.onClick) {
                                 anchorProps.onClick(event);
                             }
                             if (shouldNavigate(event)) {
                                 event.preventDefault();
-                                navigate(href, { state, replace });
+                                navigate(phref, { state, replace });
                             }
                         };
 
@@ -50,8 +50,8 @@ function LinkRender(props, ref) {
                                 ref={ref || innerRef}
                                 aria-current={isCurrent ? "page" : undefined}
                                 {...anchorProps}
-                                {...getProps({ isCurrent, isPartiallyCurrent, href, location })}
-                                href={href}
+                                {...getProps({ isCurrent, isPartiallyCurrent, phref, location })}
+                                href={phref}
                                 onClick={onClick}
                             />
                         );
