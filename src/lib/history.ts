@@ -3,6 +3,12 @@
 const getLocation = (source) => {
     return {
         ...source.location,
+        get searchParams() {
+            if (!("searchParams" in source.location)) {
+                return new URLSearchParams(source.location.search.substr(1));
+            }
+            return source.location.searchParams;
+        },
         state: source.history.state,
         key: (source.history.state && source.history.state.key) || "initial",
     };

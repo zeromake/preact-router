@@ -51,8 +51,8 @@ export function insertParams(path, params) {
         "/" +
         segments
         .map((segment) => {
-            const match = paramRe.exec(segment);
-            return match ? params[match[1]] : segment;
+            const matchObj = paramRe.exec(segment);
+            return matchObj ? params[matchObj[1]] : segment;
         })
         .join("/")
     );
@@ -97,7 +97,7 @@ function rankRoutes(routes) {
 }
 
 export function pick(routes, uri) {
-    let match;
+    let matchObj;
     let default_;
 
     const [uriPathname] = uri.split("?");
@@ -171,7 +171,7 @@ export function pick(routes, uri) {
         }
 
         if (!missed) {
-            match = {
+            matchObj = {
                 route,
                 params,
                 uri: "/" + uriSegments.slice(0, index).join("/"),
@@ -179,7 +179,7 @@ export function pick(routes, uri) {
             break;
         }
     }
-    return match || default_ || null;
+    return matchObj || default_ || null;
 }
 
 export const isBrowser = typeof window !== "undefined";
