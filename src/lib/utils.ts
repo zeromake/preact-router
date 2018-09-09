@@ -207,7 +207,9 @@ const canUsePromise = "Promise" in global;
 
 function getPromiseDefer() {
     const promiseDefer = Promise.resolve();
-    return (fn: () => void) => promiseDefer.then(fn);
+    return function PromiseDefer(fn: () => void) {
+        return promiseDefer.then(fn);
+    };
 }
 /**
  * 异步调度方法，异步的执行传入的方法
@@ -274,4 +276,8 @@ export function resolve(to: string, base: string): string {
 
 export function match(path, uri) {
     return pick([{ path }], uri);
+}
+
+export function IsArray(arr: any): boolean {
+    return Object.prototype.toString.call(arr) === "[object Array]";
 }

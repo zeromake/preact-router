@@ -1,6 +1,7 @@
 import {
     h,
     Component,
+    PolyfillLifecycle,
 } from "react-import";
 
 import {
@@ -108,12 +109,12 @@ class FocusHandlerImpl extends Component<any, any> {
 
     public setRef = (n) => this.node = n && n.base ? n.base : n;
 
-    public componentWillReceiveProps(nextProps, nextState) {
-        const state = FocusHandlerImpl.getDerivedStateFromProps(nextProps, this.state);
-        if (state != null) {
-            this.setState(state);
-        }
-    }
+    // public componentWillReceiveProps(nextProps, nextState) {
+    //     const state = FocusHandlerImpl.getDerivedStateFromProps(nextProps, this.state);
+    //     if (state != null) {
+    //         this.setState(state);
+    //     }
+    // }
 
     public render() {
         const {
@@ -125,19 +126,6 @@ class FocusHandlerImpl extends Component<any, any> {
             uri,
             location,
             ...domProps  } = this.props;
-        // const domProps = rest(
-        //     this.props,
-        //     [
-        //         "children",
-        //         "style",
-        //         "requestFocus",
-        //         "role",
-        //         "component",
-        //         "uri",
-        //         "location",
-        //     ],
-        // );
-
         return (
             <Comp
                 style={{ outline: "none", ...style }}
@@ -153,3 +141,4 @@ class FocusHandlerImpl extends Component<any, any> {
         );
     }
 }
+PolyfillLifecycle(FocusHandlerImpl);

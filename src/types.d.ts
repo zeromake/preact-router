@@ -12,6 +12,7 @@ declare module "react-import" {
     const findProps: any;
     const findChildren: any;
     const findNodeType: any;
+    const PolyfillLifecycle: (component: any) => void;
     export {
         h,
         Component,
@@ -24,5 +25,6 @@ declare module "react-import" {
         PureComponent,
         findNodeType,
         forwardRef,
+        PolyfillLifecycle,
     };
 }

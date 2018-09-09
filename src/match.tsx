@@ -11,16 +11,35 @@ import {
 import {
     resolve,
     match,
+    IsArray,
 } from "./lib/utils";
 
-export function Match({ path, children }) {
+import {
+    navigateType,
+    ILocationType,
+} from "./types";
+
+export function Match(
+    { path, children }: {
+        path: string,
+        children: (opt: {
+            navigate: navigateType,
+            location: ILocationType,
+            match: null|{
+                [name: string]: any;
+                uri: string,
+                path: string,
+            },
+        }) => any,
+    }) {
     return (
         <BaseContext.Consumer>
-            {({ baseuri }) => (
+            {({ baseuri }: {baseuri: string, basepath: string}) => (
                 <Location>
-                    {({ navigate, location }) => {
+                    {({ navigate, location }: {navigate: navigateType, location: ILocationType}) => {
                         const resolvedPath = resolve(path, baseuri);
                         const result = match(resolvedPath, location.pathname);
+                        children = IsArray(children) ? children[0] : children;
                         return children({
                             navigate,
                             location,

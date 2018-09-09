@@ -4,7 +4,7 @@ const getLocation = (source) => {
     return {
         ...source.location,
         get searchParams() {
-            if (!("searchParams" in source.location)) {
+            if (source.location.search !== "") {
                 return new URLSearchParams(source.location.search.substr(1));
             }
             return source.location.searchParams;

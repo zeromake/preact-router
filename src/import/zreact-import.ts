@@ -20,6 +20,9 @@ function findNodeType(vnode) {
     return vnode.nodeName;
 }
 
+function PolyfillLifecycle(component: any): void {
+}
+
 export {
     h,
     Component,
@@ -31,4 +34,5 @@ export {
     createContext,
     findNodeType,
     forwardRef,
+    PolyfillLifecycle,
 };

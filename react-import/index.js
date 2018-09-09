@@ -12,6 +12,10 @@ function findNodeType(vnode) {
     return vnode && vnode.type;
 }
 
+function PolyfillLifecycle(com) {
+
+}
+
 module.exports = {
     h,
     Component,
@@ -23,4 +27,5 @@ module.exports = {
     findChildren,
     findNodeType,
     forwardRef,
+    PolyfillLifecycle,
 };

@@ -16,6 +16,7 @@ import {
 
 import {
     defer,
+    IsArray,
 } from "./lib/utils";
 
 const deferredUpdatesName = "unstable_deferredUpdates";
@@ -86,7 +87,7 @@ export class LocationProvider extends Component<ILocationProviderProps> {
     public render() {
         const context = this.state.context;
         const props = this.props;
-        const children = Array.isArray(props.children) ? props.children[0] : props.children;
+        const children = IsArray(props.children) ? props.children[0] : props.children;
         return (
             <LocationContext.Provider value={context}>
                 {typeof children === "function" ? children(context) : children || null}

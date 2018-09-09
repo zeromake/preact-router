@@ -225,6 +225,17 @@ function createContext(defaultValue: any, calculateChangedBits?: (a: any, b: any
     return {Provider, Consumer, default: defaultValue};
 }
 
+function PolyfillLifecycle(component: any): void {
+    if (component.getDerivedStateFromProps) {
+        component.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps: any) {
+            const state = component.getDerivedStateFromProps(nextProps, this.state);
+            if (state != null) {
+                this.setState(state);
+            }
+        };
+    }
+}
+
 export {
     h,
     Component,
@@ -236,4 +247,5 @@ export {
     findNodeType,
     forwardRef,
     createContext,
+    PolyfillLifecycle,
 };
