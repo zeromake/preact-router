@@ -39,16 +39,16 @@ const runWithNavigation = (element, pathname = "/") => {
 };
 
 const Home = ({path}) => <div>Home</div>;
-const Dash = ({ children, path }) => <div>Dash {children}</div>;
+const Dash = ({ children, path }: any) => <div>Dash {children}</div>;
 const Group = ({ children, path, groupId }: {children?: any, path: string, groupId?: any}) => (
     <div>
         Group: {groupId}
         {children}
     </div>
 );
-const PropsPrinter = (props) => <pre>{JSON.stringify(props, null, 2)}</pre>;
-const Reports = ({ children }) => <div>Reports {children}</div>;
-const AnnualReport = () => <div>Annual Report</div>;
+const PropsPrinter = (props: any) => <pre>{JSON.stringify(props, null, 2)}</pre>;
+const Reports = ({ children }: any) => <div>Reports {children}</div>;
+const AnnualReport = (p: any) => <div>Annual Report</div>;
 
 describe("smoke tests", () => {
     it(`renders the root component at "/"`, () => {
@@ -114,7 +114,7 @@ describe("passed props", () => {
     });
 
     it("parses multiple params when nested", () => {
-        const pGroup: any = ({ groupId, children }) => (
+        const PGroup = ({ groupId, children }: any) => (
             <div>
                 {groupId}
                 {children}
@@ -129,9 +129,9 @@ describe("passed props", () => {
             pathname: `/group/123/user/456`,
             element: (
                 <Router>
-                    <pGroup path="group/:groupId">
+                    <PGroup path="group/:groupId">
                         <User path="user/:userId" />
-                    </pGroup>
+                    </PGroup>
                 </Router>
             ),
         });
@@ -139,21 +139,21 @@ describe("passed props", () => {
 });
 
 describe("route ranking", () => {
-    const Root = () => <div>Root</div>;
-    const Groups = () => <div>Groups</div>;
-    const Group2 = ({ groupId }) => <div>Group Id: {groupId}</div>;
-    const MyGroup = () => <div>MyGroup</div>;
-    const MyGroupsUsers = () => <div>MyGroupUsers</div>;
-    const Users = () => <div>Users</div>;
-    const UsersSplat = ({ splat }) => <div>Users Splat: {splat}</div>;
-    const User = ({ userId, groupId }) => (
+    const Root = (props: {path: string}) => <div>Root</div>;
+    const Groups = (props: {path: string}) => <div>Groups</div>;
+    const Group2 = ({ groupId }: any) => <div>Group Id: {groupId}</div>;
+    const MyGroup = (props: {path: string}) => <div>MyGroup</div>;
+    const MyGroupsUsers = (props: {path: string}) => <div>MyGroupUsers</div>;
+    const Users = (props: {path: string}) => <div>Users</div>;
+    const UsersSplat = ({ splat }: any) => <div>Users Splat: {splat}</div>;
+    const User = ({ userId, groupId }: any) => (
         <div>
             User id: {userId}, Group Id: {groupId}
         </div>
     );
-    const Me = () => <div>Me!</div>;
-    const MyGroupsAndMe = () => <div>Mine and Me!</div>;
-    const Fiver = ({ one, two, three, four, five }) => (
+    const Me = (props: {path: string}) => <div>Me!</div>;
+    const MyGroupsAndMe = (props: {path: string}) => <div>Mine and Me!</div>;
+    const Fiver = ({ one, two, three, four, five }: any) => (
         <div>
             Fiver {one} {two} {three} {four} {five}
         </div>
@@ -373,7 +373,7 @@ describe("links", () => {
     });
 
     it("renders links with relative hrefs", () => {
-        const Parent = ({ children }) => (
+        const Parent = ({ children }: any) => (
             <div>
                 <h1>Parent</h1>
                 <Link to="reports">/dash/reports</Link>
@@ -381,7 +381,7 @@ describe("links", () => {
             </div>
         );
 
-        const Child = () => (
+        const Child = (p: any) => (
             <div>
                 <h2>Child</h2>
                 <Link to="../">/dash</Link>
@@ -402,14 +402,14 @@ describe("links", () => {
     });
 
     it("uses the right href in multiple root paths", () => {
-        const Parent = ({ uri, children }) => (
+        const Parent = ({ uri, children }: any) => (
             <div>
                 <div>Parent URI: {uri}</div>
                 {children}
             </div>
         );
 
-        const Child = ({ uri }) => (
+        const Child = ({ uri }: any) => (
             <div>
                 <div>Child URI: {uri}</div>
                 <Link to="three">/one/two/three</Link>
@@ -474,7 +474,7 @@ describe("relative navigate prop", () => {
     it("navigates relative", async () => {
         let relativeNavigate;
 
-        const User = ({ children, navigate, userId }) => {
+        const User = ({ children, navigate, userId }: any) => {
             relativeNavigate = navigate;
             return (
                 <div>
@@ -484,7 +484,7 @@ describe("relative navigate prop", () => {
             );
         };
 
-        const Settings = () => <div>Settings</div>;
+        const Settings = (p: any) => <div>Settings</div>;
 
         const { snapshot: snapshot4 } = runWithNavigation(
             <Router>
@@ -504,10 +504,10 @@ describe("relative navigate prop", () => {
 
 describe("nested routers", () => {
     it("allows arbitrary Router nesting through context", () => {
-        const PageWithNestedApp = () => (
+        const PageWithNestedApp = (p: any) => (
             <div>
                 Home
-        <ChatApp />
+                <ChatApp />
             </div>
         );
 
@@ -517,7 +517,7 @@ describe("nested routers", () => {
             </Router>
         );
 
-        const ChatHome = () => <div>Chat Home</div>;
+        const ChatHome = (p: any) => <div>Chat Home</div>;
 
         snapshot({
             pathname: `/chat/home`,
