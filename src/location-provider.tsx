@@ -81,7 +81,9 @@ export class LocationProvider extends Component<ILocationProviderProps> {
     public componentWillUnmount() {
         const refs = this.state.refs;
         this.unmounted = true;
-        refs.unlisten();
+        if (refs && refs.unlisten) {
+            refs.unlisten();
+        }
     }
 
     public render() {

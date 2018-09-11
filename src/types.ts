@@ -11,7 +11,7 @@ export interface INavigateOpt {
     replace?: boolean;
 }
 
-export type navigateType = (to: string, optiosn?: INavigateOpt) => void;
+export type navigateType = (to: string|number, optiosn?: INavigateOpt) => void;
 
 type RefValue = Component<any, any>|Element|Node|null;
 

@@ -46,17 +46,21 @@ const createHistory = (source, options?) => {
                 listeners = listeners.filter((fn) => fn !== listener);
             };
         },
-        navigate(to, { state = {}, replace = false } = {}) {
-            state = { ...state, key: Date.now() + "" };
-            // try...catch iOS Safari limits to 100 pushState calls
-            try {
-                if (transitioning || replace) {
-                    source.history.replaceState(state, null, to);
-                } else {
-                    source.history.pushState(state, null, to);
+        navigate(to: string|number, { state = {}, replace = false } = {}) {
+            if (typeof to === "number") {
+                source.history.go(to);
+            } else {
+                state = { ...state, key: Date.now() + "" };
+                // try...catch iOS Safari limits to 100 pushState calls
+                try {
+                    if (transitioning || replace) {
+                        source.history.replaceState(state, null, to);
+                    } else {
+                        source.history.pushState(state, null, to);
+                    }
+                } catch (e) {
+                    source.location[replace ? "replace" : "assign"](to);
                 }
-            } catch (e) {
-                source.location[replace ? "replace" : "assign"](to);
             }
 
             location = getLocation(source);

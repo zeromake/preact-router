@@ -33,10 +33,14 @@ import {
 import {
     Redirect,
 } from "./redirect";
+import {
+    ILocationType,
+    navigateType,
+} from "./types";
 
 interface IRouteImplProps {
-    location: any;
-    navigate: any;
+    location: ILocationType;
+    navigate: navigateType;
     basepath: string;
     baseuri: string;
     component: string | Component<any, any>;
@@ -130,10 +134,15 @@ export class RouteImpl extends PureComponent<IRouteImplProps, any> {
                     params,
                     uri,
                     location,
-                    navigate: (to, options) => navigate(
-                        resolve(to, uri),
-                        options,
-                    ),
+                    navigate: (to: number|string, options?: any) => {
+                        if (typeof to === "number") {
+                            return navigate(to, options);
+                        }
+                        return navigate(
+                            resolve(to, uri),
+                            options,
+                        );
+                    },
                 };
                 const child = Children.toArray(findChildren(element));
                 return [cloneElement(

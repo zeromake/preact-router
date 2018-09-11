@@ -19,7 +19,7 @@ import {
 } from "./route";
 
 import {
-    navigate,
+    globalHistory,
     createHistory,
     createMemorySource,
 } from "./lib/history";
@@ -27,6 +27,7 @@ import {
 import { Link } from "./link";
 import { LocationProvider } from "./location-provider";
 import { Match } from "./match";
+import { createHashSource } from "./lib/hash-history";
 
 export {
     Link,
@@ -38,9 +39,10 @@ export {
     ServerLocation,
     createHistory,
     createMemorySource,
+    createHashSource,
     isRedirect,
-    navigate,
     redirectTo,
     Route,
     DRouter,
+    globalHistory,
 };

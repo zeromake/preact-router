@@ -29,9 +29,14 @@ import {
     FocusHandler,
 } from "./focus";
 
+import {
+    ILocationType,
+    navigateType,
+} from "./types";
+
 interface IRouterImplProps {
-    location: any;
-    navigate: any;
+    location: ILocationType;
+    navigate: navigateType;
     basepath: string;
     baseuri: string;
     component: string | Component<any, any>;
@@ -88,10 +93,15 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
                 params,
                 uri,
                 location,
-                navigate: (to, options) => navigate(
-                    resolve(to, uri),
-                    options,
-                ),
+                navigate: (to: number|string, options?: any) => {
+                    if (typeof to === "number") {
+                        return navigate(to, options);
+                    }
+                    return navigate(
+                        resolve(to, uri),
+                        options,
+                    );
+                },
             };
             const child = Children.toArray(findChildren(element));
             const clone = cloneElement(
