@@ -1,14 +1,16 @@
 declare module "react-import" {
     import {
-        h,
+        createElement as h,
         Component,
         PureComponent,
-        findDOMNode,
         cloneElement,
         Children,
         createContext,
         forwardRef,
-    } from "zreact";
+    } from "react";
+    import {
+        findDOMNode,
+    } from "react-dom";
     const findProps: any;
     const findChildren: any;
     const findNodeType: any;

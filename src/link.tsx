@@ -55,7 +55,7 @@ function LinkRender(props: ILinkProps, ref) {
                         const phref = resolve(to || href, baseuri);
                         const isCurrent = location.pathname === phref;
                         const isPartiallyCurrent = startsWith(location.pathname, phref);
-                        const onClick = (event: MouseEvent) => {
+                        const onClick: any = (event: MouseEvent) => {
                             if (anchorProps.onClick) {
                                 anchorProps.onClick(event);
                             }

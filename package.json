@@ -7,8 +7,7 @@
   "jsnext:main": "dist/zreact-router-esm.js",
   "minified:main": "dist/zreact-router.min.js",
   "scripts": {
-    "link": "cd react-import && npm link",
-    "test": "npm run link && jest -u --coverage",
+    "test": "jest --coverage",
     "build-react:min": "cross-env NODE_ENV=production REACT=react rollup -c rollup.config.js",
     "build-react": "cross-env REACT=react rollup -c rollup.config.js",
     "build-preact:min": "cross-env NODE_ENV=production REACT=preact rollup -c rollup.config.js",

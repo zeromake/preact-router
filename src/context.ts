@@ -4,8 +4,8 @@ import {
 
 function createNamedContext(name: string, defaultValue?: any) {
     const Ctx = createContext(defaultValue);
-    Ctx.Consumer.displayName = `${name}.Consumer`;
-    Ctx.Provider.displayName = `${name}.Provider`;
+    (Ctx.Consumer as any).displayName = `${name}.Consumer`;
+    (Ctx.Provider as any).displayName = `${name}.Provider`;
     return Ctx;
 }
 

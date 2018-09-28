@@ -17,28 +17,28 @@ import {
 export function Location(props) {
     // const children = Children.only(props.children);
     const children = IsArray(props.children) ? props.children[0] : props.children;
+    const child: any = (context: any) => {
+        return context ? children(context) : (
+            <LocationProvider>{children}</LocationProvider>
+        );
+    };
     return (
-        <LocationContext.Consumer>
-            {(context: any) => {
-                return context ? children(context) : (
-                    <LocationProvider>{children}</LocationProvider>
-                );
-            }}
-        </LocationContext.Consumer>
+        h(LocationContext.Consumer as any, null, child)
     );
 }
 
 export function ServerLocation({ url, children }) {
     return (
-        <LocationContext.Provider
-            value={{
-                location: { pathname: url },
-                navigate: () => {
-                    throw new Error("You can't call navigate on the server.");
+        h(LocationContext.Provider as any,
+            {
+                value: {
+                    location: { pathname: url },
+                    navigate: () => {
+                        throw new Error("You can't call navigate on the server.");
+                    },
                 },
-            }}
-        >
-            {children}
-        </LocationContext.Provider>
+            },
+            children,
+        )
     );
 }

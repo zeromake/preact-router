@@ -1,5 +1,8 @@
 
 module.exports = {
+    moduleNameMapper: {
+        "^react-import$": "<rootDir>/src/import/react-import.ts"
+    },
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
     },

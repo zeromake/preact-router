@@ -111,7 +111,7 @@ class RouterImpl extends PureComponent<IRouterImplProps, any> {
                     <Router primary={primary}>{child}</Router>
                 ) : null,
             );
-            const FocusWrapper = primary ? FocusHandler : component;
+            const FocusWrapper: any = primary ? FocusHandler : component;
             const wrapperProps = primary
                 ? { uri, location, component, ...domProps }
                 : domProps;

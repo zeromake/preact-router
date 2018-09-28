@@ -28,7 +28,7 @@ interface ILocationProviderProps {
     children?: any;
 }
 
-export class LocationProvider extends Component<ILocationProviderProps> {
+export class LocationProvider extends Component<ILocationProviderProps, any> {
     public state: any;
     public props: ILocationProviderProps;
     public context: any;
@@ -90,10 +90,11 @@ export class LocationProvider extends Component<ILocationProviderProps> {
         const context = this.state.context;
         const props = this.props;
         const children = IsArray(props.children) ? props.children[0] : props.children;
+        const LocationContextProvider: any = LocationContext.Provider;
         return (
-            <LocationContext.Provider value={context}>
+            <LocationContextProvider value={context}>
                 {typeof children === "function" ? children(context) : children || null}
-            </LocationContext.Provider>
+            </LocationContextProvider>
         );
     }
 }

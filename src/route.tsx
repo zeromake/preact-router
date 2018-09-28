@@ -157,7 +157,7 @@ export class RouteImpl extends PureComponent<IRouteImplProps, any> {
         }
         const cloneChildren =  this.handleChildren(Children.toArray(children), handleRouteChildren);
         if (cloneChildren && cloneChildren.length > 0) {
-            const FocusWrapper = primary ? FocusHandler : component;
+            const FocusWrapper: any = primary ? FocusHandler : component;
             const wrapperProps = primary
                 ? { uri, location, component, ...domProps }
                 : domProps;

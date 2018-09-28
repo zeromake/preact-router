@@ -182,6 +182,8 @@ export function pick(routes, uri) {
     return matchObj || default_ || null;
 }
 
+declare const window: any | undefined;
+
 export const isBrowser = typeof window !== "undefined";
 
 export const global: any = (function _() {
@@ -191,8 +193,8 @@ export const global: any = (function _() {
     let local;
     if (typeof global !== "undefined") {
         local = global;
-    } else if (typeof self !== "undefined") {
-        local = self;
+    } else if (typeof this !== "undefined") {
+        local = this;
     } else {
         try {
             local = Function("return this")();
