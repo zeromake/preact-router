@@ -14,11 +14,14 @@ const getLocation = (source) => {
     };
 };
 
-const createHistory = (source, options?) => {
+const createHistory = (source, options = {
+    mode: "history",
+}) => {
     let listeners = [];
     let location = getLocation(source);
     let transitioning = false;
     let resolveTransition = () => {};
+    const eventName = options.mode === "hash" ? "hashchange" : "popstate";
 
     return {
         get location() {
@@ -39,10 +42,10 @@ const createHistory = (source, options?) => {
                 listener();
             };
 
-            source.addEventListener("popstate", popstateListener);
+            source.addEventListener(eventName, popstateListener);
 
             return () => {
-                source.removeEventListener("popstate", popstateListener);
+                source.removeEventListener(eventName, popstateListener);
                 listeners = listeners.filter((fn) => fn !== listener);
             };
         },

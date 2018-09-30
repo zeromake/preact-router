@@ -66,7 +66,7 @@ function RootRouter() {
 import { Router, Link, LocationProvider, createHashSource, createHistory } from "zreact-router";
 
 const source = createHashSource();
-const history = createHistory(source);
+const history = createHistory(source, {mode: "hash"});
 
 function RootRouter() {
     const Home = () => <h1>Home</h1>;
