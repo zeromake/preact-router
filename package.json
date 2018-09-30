@@ -1,6 +1,6 @@
 {
   "name": "zreact-router",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "a simple router support react,preact,zreact.",
   "main": "dist/zreact-router.js",
   "module": "dist/zreact-router-esm.js",
@@ -14,7 +14,8 @@
     "build-preact": "cross-env REACT=preact rollup -c rollup.config.js",
     "build-zreact:min": "cross-env NODE_ENV=production REACT=zreact rollup -c rollup.config.js",
     "build-zreact": "cross-env REACT=zreact rollup -c rollup.config.js",
-    "build:all": "npm run build-react && npm run build-react:min && npm run build-preact && npm run build-preact:min && npm run build-zreact && npm run build-zreact:min"
+    "build:all": "npm run build-react && npm run build-react:min && npm run build-preact && npm run build-preact:min && npm run build-zreact && npm run build-zreact:min",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "@types/react-test-renderer": "^16.0.2",
     "animate.css": "^3.7.0",
     "cross-env": "^5.2.0",
+    "conventional-changelog-cli": "^2.0.5",
     "jest": "^23.6.0",
     "preact": "^8.3.1",
     "preact-animate": "^3.0.5",
