@@ -1,5 +1,9 @@
 # zreact-router
 
+[![Travis Build Status](https://travis-ci.org/zeromake/zreact-router.svg?branch=master)](https://travis-ci.org/zeromake/zreact-router)
+[![Coverage Status](https://coveralls.io/repos/github/zeromake/zreact-router/badge.svg?branch=master)](https://coveralls.io/github/zeromake/zreact-router?branch=master)
+
+
 a simple router support react, preact, zreact.
 
 copy from [preact-router](https://github.com/developit/preact-router)

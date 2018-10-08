@@ -1,0 +1,13 @@
+language: node_js
+addons:
+    chrome: stable
+cache: yarn
+node_js:
+    - "8"
+script:
+    - yarn test
+after_script:
+    - yarn coverage
+brabches:
+    only:
+        - master
