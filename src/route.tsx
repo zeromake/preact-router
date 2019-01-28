@@ -57,7 +57,7 @@ export function Route(props: any) {
 function isRoute(child: any): boolean {
     const props = findProps(child);
     const nodeType = findNodeType(child);
-    return nodeType === Route || nodeType === Redirect || props.default || props.path;
+    return nodeType === Route || nodeType === Redirect || (props && (props.default || props.path));
 }
 
 export class RouteImpl extends PureComponent<IRouteImplProps, any> {
@@ -120,7 +120,17 @@ export class RouteImpl extends PureComponent<IRouteImplProps, any> {
 
         function handleRouteChildren(routeChildren) {
             basepath = defaultBasePath;
-            const routes = Children.map(routeChildren, createRoute(basepath));
+            const createDRoute = createRoute(basepath);
+            const routes = [];
+            const newChildren = [];
+            Children.forEach(routeChildren, (route) => {
+                if (isRoute(route)) {
+                    routes.push(createDRoute(route));
+                    newChildren.push(null);
+                } else {
+                    newChildren.push(route);
+                }
+            });
             const match = pick(routes, pathname);
             if (match) {
                 const {
@@ -145,13 +155,19 @@ export class RouteImpl extends PureComponent<IRouteImplProps, any> {
                     },
                 };
                 const child = Children.toArray(findChildren(element));
-                return [cloneElement(
+                const index = routeChildren.indexOf(element);
+                const clone = cloneElement(
                     element,
                     props,
                     child.length > 0 ? (
                       <DRouter primary={primary}>{child}</DRouter>
                     ) : null,
-                )];
+                );
+                if (index !== -1) {
+                    newChildren[index] = clone;
+                    return newChildren.filter((i) => i);
+                }
+                return [clone];
             }
             return null;
         }
