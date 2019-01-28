@@ -1,6 +1,6 @@
 {
   "name": "zreact-router",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "a simple router support react,preact,zreact.",
   "main": "dist/zreact-router.js",
   "module": "dist/zreact-router-esm.js",

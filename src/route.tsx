@@ -169,7 +169,7 @@ export class RouteImpl extends PureComponent<IRouteImplProps, any> {
                 }
                 return [clone];
             }
-            return null;
+            return newChildren.filter((i) => i);
         }
         const cloneChildren =  this.handleChildren(Children.toArray(children), handleRouteChildren);
         if (cloneChildren && cloneChildren.length > 0) {
